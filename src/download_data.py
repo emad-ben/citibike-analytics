@@ -8,7 +8,7 @@ class DownloadError(Exception):
 
 def download_citibike_data(year, month=None, output_directory="data/raw"):
     """
-    download one month of citibike data
+    download one unit of citibike data
 
     -- arguments --
         year: year value as integer (e.g., 2025)
