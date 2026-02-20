@@ -52,3 +52,23 @@ def setup_logger(name, log_directory="logs"):
     logger.addHandler(console_handler)
 
     return logger
+
+def log_function_call(logger):
+    """
+    parameterized decorator function
+    decorator = log_function_call(logger)
+    new_function = decorator()
+    * decorator returns a wrapper function that takes *args and **kwargs
+    """
+    def decorator(function):
+        def wrapper(*args, **kwargs):
+            logger.info(f"begin execution {function.__name__}")
+            try:
+                result = function(*args, **kwargs)
+                logger.info(f"successful execution {function.__name__}")
+                return result
+            except Exception as e:
+                logger.error(f"bad execution {function_name} ({str(e)})", exc_info=True)
+                raise
+        return wrapper
+    return decorator
