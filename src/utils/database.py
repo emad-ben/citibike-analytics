@@ -83,6 +83,7 @@ def get_row_count(engine, schema_name, table_name):
         engine: sqlalchemy engine object acts as interface to the database
         schema_name: schema name within database
         table_name: table name within schema
+
     -- return --
         row count as an integer
     """
