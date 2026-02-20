@@ -55,7 +55,7 @@ def execute_sql_file(engine, sql_file_path):
     execute a specific sql file
 
     -- arguments --
-        engine: sqlalchemy engine object that serves as the interface to our postgres database
+        engine: sqlalchemy engine object that serves as the interface to the postgres database
         sql_file_path: path to sql file to execute relative to project root
     """
 
@@ -74,3 +74,27 @@ def execute_sql_file(engine, sql_file_path):
 
     except Exception as e:
         raise SQLFileExecutionError(str(e))
+
+def get_row_count(engine, schema_name, table_name):
+    """
+    get row count for a specific table within database
+
+    -- arguments --
+        engine: sqlalchemy engine object acts as interface to the database
+        schema_name: schema name within database
+        table_name: table name within schema
+    -- return --
+        row count as an integer
+    """
+
+    query = f"""
+        SELECT COUNT(*) from {schema_name}.{table_name};
+    """
+
+    try:
+        with engine.connect() as connection:
+            result = connection.execute(text(query))
+            row_count = result.scalar()
+        return row_count
+    except Exception as e:
+        raise SQLAlchemyError(f"failure retrieving row count from {schema_name}.{table_name}")
