@@ -1,6 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS staging;
 
-CREATE TABLE IF NOT EXISTS staging.trips (
+CREATE TABLE IF NOT EXISTS staging.citibike_rides (
     ride_id VARCHAR(50),
     rideable_type VARCHAR(50),
     started_at TIMESTAMPTZ,
