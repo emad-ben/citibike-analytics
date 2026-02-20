@@ -24,6 +24,7 @@ def get_engine(echo=False):
     -- return --
         sqlalchemy object as main interface to our postgres database
     """
+
     try:
         user = os.getenv("DB_USER")
         password = os.getenv("DB_PASSWORD")
@@ -48,7 +49,16 @@ def get_engine(echo=False):
     except SQLAlchemyError as e:
         raise DatabaseConnectionError(str(e))
 
+@log_function_call(logger)
 def execute_sql_file(engine, sql_file_path):
+    """
+    execute a specific sql file
+
+    -- arguments --
+        engine: sqlalchemy engine object that serves as the interface to our postgres database
+        sql_file_path: path to sql file to execute relative to project root
+    """
+
     try:
         with open(sql_file_path, "r") as file:
             sql = file.read()
