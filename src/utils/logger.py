@@ -68,7 +68,7 @@ def log_function_call(logger):
                 logger.info(f"successful execution {function.__name__}")
                 return result
             except Exception as e:
-                logger.error(f"bad execution {function_name} ({str(e)})", exc_info=True)
+                logger.error(f"bad execution {function.__name__} ({str(e)})", exc_info=True)
                 raise
         return wrapper
     return decorator

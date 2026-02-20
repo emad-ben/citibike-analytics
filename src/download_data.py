@@ -2,13 +2,14 @@ import requests
 from pathlib import Path
 import zipfile
 import os
-from utils.logger import setup_logger
+from utils.logger import setup_logger, log_function_call
 
 logger = setup_logger(__name__)
 
 class DownloadError(Exception):
     pass
 
+@log_function_call(logger)
 def download_citibike_data(year, month=None, output_directory="data/raw"):
     """
     download one unit of citibike data
@@ -76,7 +77,7 @@ if __name__ == "__main__":
     elif len(sys.argv) == 3:
         year = int(sys.argv[1])
         month = int(sys.argv[2])
-        download_citibike_data(year, month)
+        download_citibike_data(year, month=month)
     else:
         print("usage (yearly): python src/download_data.py 2018")
         print("usage (monthly): python src/download_data.py 2025 12")
