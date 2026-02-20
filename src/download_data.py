@@ -64,7 +64,6 @@ def download_citibike_data(year, month=None, output_directory="data/raw"):
 
     except Exception as e:
         error_message = f"failed to download citibike data from {url}\n{str(e)}"
-        logger.error(error_message)
         raise DownloadError(error_message) from e
 
 

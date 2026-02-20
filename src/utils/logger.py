@@ -55,10 +55,13 @@ def setup_logger(name, log_directory="logs"):
 
 def log_function_call(logger):
     """
-    parameterized decorator function
-    decorator = log_function_call(logger)
-    new_function = decorator()
-    * decorator returns a wrapper function that takes *args and **kwargs
+    used to create decorated function that logs entry and exit
+
+    -- arguments --
+        logger: logger object from calling module
+    
+    -- return --
+        decorator that inturn returns a function wrapper with logging facilities
     """
     def decorator(function):
         def wrapper(*args, **kwargs):
@@ -68,7 +71,7 @@ def log_function_call(logger):
                 logger.info(f"successful execution {function.__name__}")
                 return result
             except Exception as e:
-                logger.error(f"bad execution {function.__name__} ({str(e)})", exc_info=True)
+                logger.error(f"bad execution {function.__name__}:\n({str(e)})", exc_info=True)
                 raise
         return wrapper
     return decorator
